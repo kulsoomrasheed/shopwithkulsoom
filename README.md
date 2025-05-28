@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# ShopWithKulsoom
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, aesthetic e-commerce React app with product listing, favorites, and beautiful UI using Tailwind CSS.
 
-## Available Scripts
+## Features
+- Product listing with search, filter, and sort
+- Product detail view
+- Add/remove favorites (heart icon)
+- Responsive, modern design
+- Loading spinner for async actions
 
-In the project directory, you can run:
+## Setup Instructions
 
-### `npm start`
+### 1. Clone the repository
+```bash
+git clone <your-repo-url>
+cd my-assignment
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3. Start the development server
+```bash
+npm start
+```
 
-### `npm test`
+The app will run at [http://localhost:3000](http://localhost:3000).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Structure
+```
+src/
+  components/        # Reusable UI components (ProductCard, Loader, etc.)
+  features/          # Redux slices for products, favorites, filters
+  pages/             # Main pages (ProductListPage, ProductDetailPage, FavoritesPage)
+  store/             # Redux store setup
+  index.js           # App entry point
+  App.js             # Main app component with navbar and routes
+```
 
-### `npm run build`
+## Customization & Notes
+- **Styling:** Uses Tailwind CSS for rapid, utility-first styling.
+- **API:** Fetches products from [Fake Store API](https://fakestoreapi.com/).
+- **Favorites:** Managed in Redux state; persists only for the session.
+- **Loader:** Circular progress indicator appears during data loading.
+- **Navbar:** Modern, sticky, and responsive with brand name.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Documentation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Adding a New Feature
+- Create a new component in `src/components/` if it's UI-related.
+- Add new Redux logic in `src/features/` if it involves state.
+- Add new routes/pages in `src/pages/` and update `App.js`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Running Tests
+```bash
+npm test
+```
 
-### `npm run eject`
+### Build for Production
+```bash
+npm run build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Author:** Kulsoom
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For questions or contributions, open an issue or pull request.
