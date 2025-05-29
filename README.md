@@ -29,43 +29,60 @@ npm start
 
 The app will run at [http://localhost:3000](http://localhost:3000).
 
+## Testing
+
+### Running Tests
+```bash
+# Run tests in watch mode
+npm test
+
+# Run tests once
+npm test -- --watchAll=false
+
+# Generate coverage report
+npm test -- --coverage --watchAll=false
+```
+
+### Test Coverage Report
+
+Current test coverage metrics (as of latest run):
+
+| Category | Coverage |
+|----------|----------|
+| Statements | 52.54% |
+| Branches | 45.09% |
+| Functions | 67.34% |
+| Lines | 54.90% |
+
+#### Coverage by Component
+- **App.js**: 100%
+- **Redux Features**:
+  - Filters: 100%
+  - Products: 76.92%
+  - Store Configuration: 0%
+- **Pages**:
+  - ProductListPage: 94.59%
+
+#### Test Suite Summary
+- Total Test Suites: 6 passed
+- Total Tests: 22 passed
+- No failing tests
+
 ## Project Structure
 ```
 src/
   components/        # Reusable UI components (ProductCard, Loader, etc.)
-  features/          # Redux slices for products, favorites, filters
-  pages/             # Main pages (ProductListPage, ProductDetailPage, FavoritesPage)
-  store/             # Redux store setup
-  index.js           # App entry point
-  App.js             # Main app component with navbar and routes
+  features/         # Redux slices for products, favorites, filters
+  pages/           # Main pages (ProductListPage, ProductDetailPage, FavoritesPage)
+  store/           # Redux store configuration
+  App.js           # Main app component
+  index.js         # Entry point
 ```
 
-## Customization & Notes
-- **Styling:** Uses Tailwind CSS for rapid, utility-first styling.
-- **API:** Fetches products from [Fake Store API](https://fakestoreapi.com/).
-- **Favorites:** Managed in Redux state; persists only for the session.
-- **Loader:** Circular progress indicator appears during data loading.
-- **Navbar:** Modern, sticky, and responsive with brand name.
-
-## Documentation
-
-### Adding a New Feature
-- Create a new component in `src/components/` if it's UI-related.
-- Add new Redux logic in `src/features/` if it involves state.
-- Add new routes/pages in `src/pages/` and update `App.js`.
-
-### Running Tests
-```bash
-npm test
-```
-
-### Build for Production
-```bash
-npm run build
-```
-
----
-
-**Author:** Kulsoom
-
-For questions or contributions, open an issue or pull request.
+## Technologies Used
+- React 18
+- Redux Toolkit
+- React Router DOM
+- Tailwind CSS
+- Testing Library
+- Jest

@@ -6,6 +6,7 @@ import productsReducer from '../features/products/productsSlice';
 import filtersReducer from '../features/filters/filtersSlice';
 import favoritesReducer from '../features/favorites/favoritesSlice';
 import ProductListPage from './ProductListPage';
+import { act } from 'react';
 
 const mockProducts = [
   { id: 1, title: 'Red Shoes', price: 50, image: 'test.jpg', category: 'fashion' },
@@ -24,42 +25,68 @@ beforeEach(() => {
     return Promise.resolve({ ok: true, json: () => Promise.resolve([]) });
   });
 });
+
 afterEach(() => {
   jest.restoreAllMocks();
 });
 
-function renderWithStore(
-  {
-    products = mockProducts,
-    filters = { search: '', category: 'all', sort: 'asc' },
-    favorites = { items: [] },
-  } = {}
-) {
-  const store = configureStore({
-    reducer: {
-      products: productsReducer,
-      filters: filtersReducer,
-      favorites: favoritesReducer,
-    },
-    preloadedState: {
-      products: { items: products, status: 'succeeded', error: null },
-      filters,
-      favorites,
-    },
-  });
-  return render(
-    <Provider store={store}>
-      <ProductListPage />
-    </Provider>
-  );
-}
+describe('ProductListPage', () => {
+  let store;
 
-describe('ProductListPage integration', () => {
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        products: productsReducer,
+        filters: filtersReducer,
+        favorites: favoritesReducer
+      },
+      preloadedState: {
+        products: { items: mockProducts, status: 'succeeded', error: null },
+        filters: { search: '', category: 'all', sort: 'asc' },
+        favorites: { items: [] }
+      }
+    });
+  });
+
+  const renderWithStore = async () => {
+    await act(async () => {
+      render(
+        <Provider store={store}>
+          <ProductListPage />
+        </Provider>
+      );
+    });
+  };
+
+  it('renders loading state initially', async () => {
+    store = configureStore({
+      reducer: {
+        products: productsReducer,
+        filters: filtersReducer,
+        favorites: favoritesReducer
+      },
+      preloadedState: {
+        products: { items: [], status: 'loading', error: null },
+        filters: { search: '', category: 'all', sort: 'asc' },
+        favorites: { items: [] }
+      }
+    });
+    
+    await renderWithStore();
+    const loadingSpinner = screen.getByTestId('loading-spinner');
+    expect(loadingSpinner).toBeInTheDocument();
+  });
+
   it('shows products and can search by title', async () => {
-    renderWithStore();
+    await renderWithStore();
+    
     expect(screen.getByText('Red Shoes')).toBeInTheDocument();
     expect(screen.getByText('Blue Shirt')).toBeInTheDocument();
-    fireEvent.change(screen.getByPlaceholderText(/search by title/i), { target: { value: 'laptop' } });
+    
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText(/search by title/i), { target: { value: 'laptop' } });
+    });
+
     await waitFor(() => {
       expect(screen.queryByText('Red Shoes')).not.toBeInTheDocument();
       expect(screen.queryByText('Blue Shirt')).not.toBeInTheDocument();
@@ -67,19 +94,30 @@ describe('ProductListPage integration', () => {
     });
   });
 
-  it('can sort by price', () => {
-    renderWithStore();
-    fireEvent.change(screen.getByDisplayValue('Price: Low to High'), { target: { value: 'desc' } });
+  it('can sort by price', async () => {
+    await renderWithStore();
+    
+    await act(async () => {
+      fireEvent.change(screen.getByDisplayValue('Price: Low to High'), { target: { value: 'desc' } });
+    });
+
     const cards = screen.getAllByRole('heading', { level: 2 });
     expect(cards[0]).toHaveTextContent('Laptop'); // highest price first
   });
 
-  it('can favorite and unfavorite a product', () => {
-    renderWithStore();
+  it('can favorite and unfavorite a product', async () => {
+    await renderWithStore();
+    
     const favButton = screen.getAllByRole('button', { name: /add to favorites/i })[0];
-    fireEvent.click(favButton);
+    
+    await act(async () => {
+      fireEvent.click(favButton);
+    });
     expect(favButton).toHaveAttribute('aria-pressed', 'true');
-    fireEvent.click(favButton);
+    
+    await act(async () => {
+      fireEvent.click(favButton);
+    });
     expect(favButton).toHaveAttribute('aria-pressed', 'false');
   });
 }); 

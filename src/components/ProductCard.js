@@ -22,7 +22,7 @@ function ProductCard({ product, isFavorite, onFavorite }) {
             
             ) : (
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#ef4444" width="24" height="24">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
         d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 
            4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 
            4.5 0 010-6.364z" />
@@ -56,7 +56,7 @@ export default ProductCard;
 // Loader component for circular progress
 export function Loader() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white/60 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-white/60 z-50" data-testid="loading-spinner">
       <svg className="animate-spin h-14 w-14 text-blue-600" viewBox="0 0 50 50">
         <circle className="opacity-20" cx="25" cy="25" r="20" stroke="currentColor" strokeWidth="5" fill="none" />
         <circle className="opacity-70" cx="25" cy="25" r="20" stroke="currentColor" strokeWidth="5" fill="none" strokeDasharray="31.4 94.2" />
